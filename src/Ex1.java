@@ -50,6 +50,7 @@ public class Ex1 {
      * @return true iff the given String is in a number format
      */
     public static boolean isNumber(String a) {
+        ////////////Consider the part that the input is a regular decimal number without b
         boolean ans = true;
         // add your code here
         if (a == null || !a.contains("b")) {// Must contain "b" separator
