@@ -25,6 +25,16 @@ public class Ex1 {
         if (!isNumber(num)) {// Validate input format
             return -1;
         }
+        boolean isAllDigits = true;
+        for (char c : num.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                isAllDigits = false;
+                break; // Exit the loop if any non-digit character is found
+            }
+        }
+        if (isAllDigits) {
+            return Integer.parseInt(num); // Treat it as a decimal number
+        }
         // Split the input into the number part and the base
         String[] parts = num.split("b");
         int base = getBasis(parts[1]);
@@ -50,30 +60,46 @@ public class Ex1 {
      * @return true iff the given String is in a number format
      */
     public static boolean isNumber(String a) {
-        ////////////Consider the part that the input is a regular decimal number without b
         boolean ans = true;
         // add your code here
-        if (a == null || !a.contains("b")) {// Must contain "b" separator
-            return false;
-        }
-        // Split into number part and base part
-        String[] parts = a.split("b");
-        if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
-            return false;// Invalid format if either part is empty
-        }
-
-        int base = getBasis(parts[1]);
-        if (base == -1) {// Check if base is valid
+        if (a == null || a.isEmpty()) { // Null or empty string is invalid
             return false;
         }
 
-        // Check each character in the number part
-        for (char c : parts[0].toCharArray()) {
-            if (!isValidDigit(c, base)) {
-                return false;// Invalid digit for the given base
+        // Check if the input is purely numeric (decimal number)
+        boolean isAllDigits = true;
+        for (char c : a.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                isAllDigits = false;
+                break; // Exit loop early if a non-digit is found
             }
         }
+        if (isAllDigits) {
+            return true; // Valid decimal number
+        }
 
+        // Check if the input is in <number><b><base> format
+        if (a.contains("b")) {
+            String[] parts = a.split("b");
+            if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
+                return false; // Invalid format if either part is empty
+            }
+
+            int base = getBasis(parts[1]);
+            if (base == -1) {
+                return false; // Invalid base
+            }
+
+            // Check if all characters in the number part are valid for the base
+            for (char c : parts[0].toCharArray()) {
+                if (!isValidDigit(c, base)) {
+                    return false; // Invalid digit for the base
+                }
+            }
+
+            return true; // Valid formatted number
+        }
+        ans = false;
         ////////////////////
         return ans;
 
