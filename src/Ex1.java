@@ -25,15 +25,8 @@ public class Ex1 {
         if (!isNumber(num)) {// Validate input format
             return -1;
         }
-        boolean isAllDigits = true;
-        for (char c : num.toCharArray()) {
-            if (!Character.isDigit(c)) {
-                isAllDigits = false;
-                break; // Exit the loop if any non-digit character is found
-            }
-        }
-        if (isAllDigits) {
-            return Integer.parseInt(num); // Treat it as a decimal number
+        if (isDecimal(num)) {
+            return Integer.parseInt(num); // Treat as decimal number
         }
         // Split the input into the number part and the base
         String[] parts = num.split("b");
@@ -67,14 +60,7 @@ public class Ex1 {
         }
 
         // Check if the input is purely numeric (decimal number)
-        boolean isAllDigits = true;
-        for (char c : a.toCharArray()) {
-            if (!Character.isDigit(c)) {
-                isAllDigits = false;
-                break; // Exit loop early if a non-digit is found
-            }
-        }
-        if (isAllDigits) {
+        if (isDecimal(a)) {
             return true; // Valid decimal number
         }
 
@@ -161,16 +147,23 @@ public class Ex1 {
         int ans = 0;
         // add your code here
         int maxValue = -1;
+        boolean foundValidNumber = false; // Track if a valid number was found
 
         for (int i = 0; i < arr.length; i++) {
             String num = arr[i];
-            if (num != null && isNumber(num)) {
+            if (isNumber(num)) {
                 int value = number2Int(num); // Get decimal value
                 if (value > maxValue) { // Update max if a larger value is found
                     maxValue = value;
                     ans = i;
+                    foundValidNumber = true; // Mark that a valid number was found
                 }
             }
+        }
+
+// If no valid number was found, set ans to -1
+        if (!foundValidNumber) {
+            ans = -1;
         }
         ////////////////////
         return ans;
@@ -253,4 +246,14 @@ public class Ex1 {
         }
 
     }
+
+    private static boolean isDecimal(String num) {
+        for (char c : num.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
