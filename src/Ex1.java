@@ -246,7 +246,13 @@ public class Ex1 {
         }
 
     }
-
+    /**
+     * This method checks whether a given string represents a valid decimal number.
+     * A valid decimal number is a string that consists only of numerical digits (0-9).
+     *
+     * @param num the string to check
+     * @return true if the string is a valid decimal number, false otherwise
+     */
     private static boolean isDecimal(String num) {
         for (char c : num.toCharArray()) {
             if (!Character.isDigit(c)) {

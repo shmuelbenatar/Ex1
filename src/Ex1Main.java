@@ -44,14 +44,20 @@ public class Ex1Main {
                 int base = sc.nextInt();
 
                 if (base < 2 || base > 16) {
-                    System.out.println("ERR: Base is out of range! (" + base + ")");
+                    System.out.println("ERR: wrong base, should be [2,16], got (" + base + ")");
                     continue;
                 }
+                String sumInBase;
+                String productInBase;
 
                 // Perform operations
-                String sumInBase = Ex1.int2Number(num1Value + num2Value, base);
-                String productInBase = Ex1.int2Number(num1Value * num2Value, base);
-
+                if (base == 10){
+                    sumInBase = String.valueOf(num1Value + num2Value);
+                    productInBase = String.valueOf(num1Value * num2Value);
+                }else {
+                    sumInBase = Ex1.int2Number(num1Value + num2Value, base);
+                    productInBase = Ex1.int2Number(num1Value * num2Value, base);
+                }
                 System.out.println(num1 + " + " + num2 + " = " + sumInBase);
                 System.out.println(num1 + " * " + num2 + " = " + productInBase);
 
